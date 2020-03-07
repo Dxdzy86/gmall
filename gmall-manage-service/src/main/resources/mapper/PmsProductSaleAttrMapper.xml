@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxd.gmall.manage.mapper.PmsProductSaleAttrMapper">
+
+    <resultMap id="pmsProductSaleAttrMap" type="com.dxd.gmall.bean.PmsProductSaleAttr">
+        <!--
+        id  product_id  sale_attr_id  sale_attr_name
+        id  product_id  sale_attr_id  sale_attr_value_name
+        -->
+        <id column="sa_id" property="id"/>
+        <result column="sa_product_id" property="productId"/>
+        <result column="sa_sale_attr_id" property="saleAttrId"/>
+        <result column="sa_sale_attr_name" property="saleAttrName"/>
+        <collection property="spuSaleAttrValueList" ofType="com.dxd.gmall.bean.PmsProductSaleAttrValue">
+            <id column="sav_id" property="id"/>
+            <result column="sav_product_id" property="productId"/>
+            <result column="sav_sale_attr_id" property="saleAttrId"/>
+            <result column="sav_sale_attr_value_name" property="saleAttrValueName"/>
+            <result column="isChecked" property="isChecked"/>
+        </collection>
+
+    </resultMap>
+    <select id="spuSaleAttrListCheckBySku" resultMap="pmsProductSaleAttrMap">
+        SELECT
+            sa.id sa_id,sa.product_id sa_product_id,sa.sale_attr_id sa_sale_attr_id,sa.sale_attr_name sa_sale_attr_name,
+            sav.id sav_id,sav.product_id sav_product_id,sav.sale_attr_id sav_sale_attr_id,sav.sale_attr_value_name sav_sale_attr_value_name,
+            IF(ssav.sku_id,1,0) AS isChecked
+        FROM
+            pms_product_sale_attr sa
+        INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id
+        AND sa.sale_attr_id = sav.sale_attr_id
+        AND sa.product_id = #{productId}
+        LEFT JOIN pms_sku_sale_attr_value ssav ON sav.`id`=ssav.`sale_attr_value_id`
+        AND ssav.`sku_id`=#{skuId}
+    </select>
+</mapper>
