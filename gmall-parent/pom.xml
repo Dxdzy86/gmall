@@ -37,7 +37,7 @@
         <!--  ElasticSearch的java客户端   -->
         <jest.version>5.3.3</jest.version>
         <jna.version>4.5.1</jna.version>
-        <beanUtils.version>1.9.3</beanUtils.version>
+        <beanUtils.version>1.9.4</beanUtils.version>
         <!-- thymeleaf3版本 -->
         <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
         <!--布局功能的支持程序 thymeleaf3主程序 layout2以上版本-->
