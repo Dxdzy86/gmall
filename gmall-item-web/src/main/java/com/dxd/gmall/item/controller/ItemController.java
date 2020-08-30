@@ -62,7 +62,6 @@ public class ItemController {
 
         String skuSaleAttrValueJsonStr = JSON.toJSONString(skuSaleAttrValuesMap);
         modelMap.addAttribute("skuSaleAttrValueJsonStr",skuSaleAttrValueJsonStr);
-
         return "item";
     }
 }

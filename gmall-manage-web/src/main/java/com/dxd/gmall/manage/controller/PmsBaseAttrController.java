@@ -31,7 +31,11 @@ public class PmsBaseAttrController {
         return pmsBaseAttrInfoList;
     }
 
-    //保存平台属性信息
+    /**
+     * 保存平台属性信息
+     * @param pmsBaseAttrInfo
+     * @return
+     */
     @RequestMapping("saveAttrInfo")
     @ResponseBody
     public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo){

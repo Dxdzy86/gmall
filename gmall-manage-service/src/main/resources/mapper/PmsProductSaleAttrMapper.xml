@@ -23,8 +23,14 @@
     </resultMap>
     <select id="spuSaleAttrListCheckBySku" resultMap="pmsProductSaleAttrMap">
         SELECT
-            sa.id sa_id,sa.product_id sa_product_id,sa.sale_attr_id sa_sale_attr_id,sa.sale_attr_name sa_sale_attr_name,
-            sav.id sav_id,sav.product_id sav_product_id,sav.sale_attr_id sav_sale_attr_id,sav.sale_attr_value_name sav_sale_attr_value_name,
+            sa.id sa_id,
+            sa.product_id sa_product_id,
+            sa.sale_attr_id sa_sale_attr_id,
+            sa.sale_attr_name sa_sale_attr_name,
+            sav.id sav_id,
+            sav.product_id sav_product_id,
+            sav.sale_attr_id sav_sale_attr_id,
+            sav.sale_attr_value_name sav_sale_attr_value_name,
             IF(ssav.sku_id,1,0) AS isChecked
         FROM
             pms_product_sale_attr sa

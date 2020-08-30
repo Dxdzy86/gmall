@@ -8,6 +8,7 @@
         <groupId>com.dxd.gmall</groupId>
         <artifactId>gmall-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../gmall-parent/pom.xml</relativePath>
     </parent>
 
     <groupId>com.dxd.gmall</groupId>
@@ -21,27 +22,35 @@
             <artifactId>gmall-common-util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
+        <!--  SpringBoot中mysql的jdbc驱动的场景启动器      -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-
+        <!--   SpringBoot中Mybatis的场景启动器     -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
-
+        <!--连接数据库的jar包-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-
+        <!--操作redis的Java客户端-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
         </dependency>
+
+        <!-- 在redis基础上的比jedis更加强大的具有分布式功能的jar包 -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.12.3</version>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -13,7 +13,6 @@ public class PmsBaseAttrValue implements Serializable{
     private String attrId;
     @Column
     private String isEnabled;
-
     @Transient
     private String urlParam;
 

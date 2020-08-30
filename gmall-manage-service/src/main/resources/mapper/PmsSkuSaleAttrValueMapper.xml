@@ -11,7 +11,13 @@
         <result column="ssav_sale_attr_value_name" property="saleAttrValueName"/>
     </resultMap>
     <select id="selectSkuSaleAttrValueListBySpu" resultMap="SkuSaleAttrValueListBySpuMap">
-        select ssav.id ssav_id,ssav.sku_id ssav_sku_id,ssav.sale_attr_id ssav_sale_attr_id,ssav.sale_attr_value_id ssav_sale_attr_value_id,ssav.sale_attr_name ssav_sale_attr_name,ssav.sale_attr_value_name ssav_sale_attr_value_name
+        select
+        ssav.id ssav_id,
+        ssav.sku_id ssav_sku_id,
+        ssav.sale_attr_id ssav_sale_attr_id,
+        ssav.sale_attr_value_id ssav_sale_attr_value_id,
+        ssav.sale_attr_name ssav_sale_attr_name,
+        ssav.sale_attr_value_name ssav_sale_attr_value_name
         from pms_sku_info si inner join pms_sku_sale_attr_value ssav
         on si.id=ssav.sku_id
         where si.product_id=#{productId}

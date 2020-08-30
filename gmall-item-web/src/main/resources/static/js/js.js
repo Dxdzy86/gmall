@@ -54,13 +54,6 @@ $(function(){
 			})
 		});
 
-
-
-	
-
-
-	
-
 		$(".box-attr dd").click(function() {
 			$(this).css({
 				"border": "solid 1px red"

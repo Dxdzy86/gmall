@@ -8,11 +8,17 @@ import com.dxd.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.dxd.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.dxd.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import com.dxd.gmall.service.PmsBaseAttrService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+/**
+ * @author Dxd
+ * @date 2020/04/19
+ */
 @Service
 public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
 
@@ -23,7 +29,11 @@ public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
     @Autowired
     PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
 
-    //根据三级分类id查询平台属性
+    /**
+     * 根据三级分类id查询平台属性
+     * @param catalog3Id 三级分类Id
+     * @return
+     */
     @Override
     public List<PmsBaseAttrInfo> getAttrInfoList(String catalog3Id) {
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
@@ -39,7 +49,10 @@ public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
         return pmsBaseAttrInfoList;
     }
 
-    //保存平台属性和属性值
+    /**
+     * 保存平台属性和属性值
+     * @param pmsBaseAttrInfo 平台属性bean对象
+     */
     @Override
     public void saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
         try {
@@ -65,6 +78,8 @@ public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
                             }
                         }
                         for (PmsBaseAttrValue value : attrValues) {
+                            //对于同一个平台属性，如果前台传入的平台属性值ids不包括数据库中该平台属性对应的每个平台属性值id，
+                            //就删除数据库中多余的平台属性值
                             if(!ids.contains(value.getId())) {
                                 this.pmsBaseAttrValueMapper.delete(value);
                             }
@@ -81,7 +96,6 @@ public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
                             }
                         }
                     }
-
                 } else {
                     //如果没有，说明这是一条插入操作
                     //将属性插入到数据库中
@@ -115,11 +129,26 @@ public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
         return pmsBaseAttrValueList;
     }
 
-    //获取商品销售属性列表
+    /**
+     * 获取商品销售属性列表
+     * @return List<PmsBaseSaleAttr>
+     */
     @Override
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
         List<PmsBaseSaleAttr> pmsBaseSaleAttrList = this.pmsBaseSaleAttrMapper.selectAll();
         return pmsBaseSaleAttrList;
+    }
+
+
+    /**
+     * @param attrValueIdList 平台销售属性值的Set集合
+     * @return List<PmsBaseAttrInfo>
+     */
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueIdList(Set<String> attrValueIdList) {
+        String attrValueIds = StringUtils.join(attrValueIdList.iterator(), ",");
+        List<PmsBaseAttrInfo> attrInfoList = this.pmsBaseAttrInfoMapper.selectBaseAttrInfoByIds(attrValueIds);
+        return attrInfoList;
     }
 
 }
